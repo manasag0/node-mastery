@@ -1,6 +1,4 @@
 const express = require('express');
-const Post = require('../model/post');
-
 const postsRoute = express.Router();
 
 let posts = [
@@ -50,26 +48,12 @@ postsRoute.get('/getPosts', (req, res) => {
 
 postsRoute.post('/createPost', (req, res) => {
     // console.log(req.body);
-    // posts.push(req.body);
-    
-    const post  = new Post({
-        user: req.body.user,
-        title: req.body.title,
-        content: req.body.content
+    posts.push(req.body);
+    res.status(201).json({
+        message:"post created successfully",
+        data: posts
     });
 
-    post.save()
-    .then((record) => {
-        res.status(201).json({
-            message:"Post created successfully",
-            data: record
-        });
-    }).catch(err => {
-        res.status(500).json({
-            errorDesc: "Failed to create a post!",
-            error: err
-        })
-    });
 });
 
 postsRoute.put('/updatePost/:id', (req, res) => {

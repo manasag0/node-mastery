@@ -1,13 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const postsRoute = require('./routes/post');
+const mongoose = require('mongoose');
 
 const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/post', postsRoute);
+// connection to mongoDB
+// RsjwyXhy5RvrkFaA - password
+mongoose.connect('mongodb+srv://chakradhardittakavi:RsjwyXhy5RvrkFaA@cluster0.ertlqcl.mongodb.net/?retryWrites=true&w=majority')
+.then((response) => {
+    console.log("Connected to mongo DB successfully!");
+})
+.catch( err => {
+    console.log("Connection to DB failed!", err);
+});
 
+app.use('/post', postsRoute);
 
 app.post('/login', (req, res) => {
 
