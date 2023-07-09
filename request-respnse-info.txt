@@ -1,0 +1,21 @@
+We have HTTP methods to specify what operation we are going to do.
+
+CRUD - create, read, update, delete
+
+Our request can go into any of the below methods or categories.
+
+GET - to get something from the server. It means to get some data and read it.(READ)
+POST - to create a new record
+PUT - to update existing record
+DELETE - to delete existing record
+
+
+The response from the server can be success or failure
+
+There are status codes for each kind of status
+
+100-199 - information
+200-299 - success
+300-399 - redirect
+400-499 - client issues (problem with your request)
+500-599 - server issues (problem with the server)

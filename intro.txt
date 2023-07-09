@@ -1,0 +1,64 @@
+topics covered
+
+1. we discussed web 1.0
+we discussed the purpose of js for adding interactivity to the websites
+js grew big with more features and powers
+web 2.0 started adding more interactivity and users can now create content and put it on websites, interact and lot more
+js became popular due to these requirements
+
+js will come inbuilt in brosers. Browsers have engines to run this javascript. eg: chrome has v8 engine to run JS.
+
+
+To build complex applications, we better split the application into differnet layers
+one such idea is 3 tier architecture
+3 tier:
+presentation tier - (website or app) html,css, js, php
+business tier - server java, nodejs ,python, .Net, C#
+database tier - MySQL, MongoDB
+
+
+now, after diving the application into layers, we need to connect them again.
+It means that different layers can talk to each other.
+
+presentation layer <-----> business layer <-------> database layer
+
+presentation layer and business layers cannot talk in some random format. It is better to follow a standard protocol.
+
+business layer exposes an API or an end point (eg: https://develoer.uber.com/v2/products?latitiude=422724&longitude=2424243)
+
+There are some standards which came out- we will discuss them in detail going forward.
+
+Our focus will be on creating such end points or servers.
+
+
+For a language or a setup to qualify as a server, it needs to have access to the system resources like CPU information, memory, file system and lot other things.
+
+JS does not have all these capabilities as we discussed.
+
+Ryan Dahl started a project to see if JS can be used as a server.
+
+He understood the gaps or limitations and thought if he can build a tool to fill those gaps and connect JS to system resources, then a server can be born.
+
+
+Nodejs was initially critisized by the tech community.
+No one showed interest in it since it is single threaded and a fontend scripting language.
+
+Ryan Dahl was going to different meetings and meeting tech evangelists to get some support for his project.
+
+Around 2009, somethings happened in the same time which added the magic to Node.js
+
+Node package manager or NPM
+
+NPM is a library or collection of all javascript bundles or packages
+
+1. NPM started evolving at the same time and since there are already ready made packages, developers started using npm.
+
+2. web 2.0 eveolved and there is a lot of user data getting generated and it has become a problem with mySQL or other database languages to store such dynamic data.
+
+
+MERN STACK developers
+
+Mongo
+Express
+React
+Node
