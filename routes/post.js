@@ -25,27 +25,68 @@ let posts = [
 //To get specific post, you need to pass query parameters in the request.
 //They will be starting with ?
 //example: /getPosts?id=<id of the post you need> ->  /getPosts?id=q3e2
+
+//https://www.myntra.com/gateway/v2/search/ucb?f=Categories%3ATrack%20Pants%2CTshirts%3A%3AGender%3Amen%2Cmen%20women&rf=Discount%20Range%3A40.0_100.0_40.0%20TO%20100.0%3A%3APrice%3A311.0_728.0_311.0%20TO%20728.0&rows=50&o=0&plaEnabled=false&xdEnabled=false&pincode=500084
 postsRoute.get('/getPosts', (req, res) => {
     const postId = req.query.id;
-    console.log(postId);
-
-    let queriedPost = posts;  //To store any filtered post
-    if(postId) {
-        queriedPost = posts.filter( post => {
-            if(post.id === postId) {
-                return post;
-            }
-        });
-    }
-
-    res.status(200).json({
-        message: "Post fetched successfully!",
-        data: queriedPost
-    });
+    const search = req.query.search;
     
 
+    /*START - Pagination math with example
+     
+    total = 10
+    per page 2
+    pageno = 1
 
-    res.status(200).json(posts);
+    1,2
+
+    per page 2
+    pageno = 4
+
+    we should exclude posts till page 3 and consider only 2 item from there
+    2* (4 -1) -> count*(pageno-1)
+    count no of posts
+
+    END - Pagination math with example*/
+
+    //Pagination
+    const pageNo = req.query.page;
+    const count = 2;
+
+    let filter = {};
+    
+    if(postId) {
+        filter = {
+            _id: postId
+        }
+    }
+
+    if(search) {
+        filter = {
+            title: {'$regex': `${search}`, '$options': 'i'}
+        }
+    }
+
+    const postRequest = Post.find(filter);
+
+    //Adding pagination to query
+    if(!postId && pageNo && count) {
+        postRequest.skip(count*(pageNo -1)).limit(count);
+    }
+    console.log(filter);
+
+    postRequest.then(postData => {
+        res.status(200).json({
+            message: "Post fetched successfully!",
+            data: postData
+        });
+    }).catch(err => {
+        res.status(500).json({
+            errorDesc: "Failed to get posts!",
+            error: err
+        });
+    })
+    
 });
 
 postsRoute.post('/createPost', (req, res) => {
@@ -78,10 +119,6 @@ postsRoute.put('/updatePost/:id', (req, res) => {
     const updatedContent =  req.body;
     console.log(updatedContent);
     if(postId) {
-        // const matchingPost = posts.find(post => {
-        //     return post.id === postId
-        // });
-        // updatedPost = {...matchingPost,...updatedContent };
         posts = posts.map(post => {
             if(post.id === postId) {
                 return {...post, ...updatedContent};
