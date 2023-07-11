@@ -35,13 +35,14 @@ postsRoute.get('/getPosts', (req, res) => {
     /*START - Pagination math with example
      
     total = 10
-    per page 2
+    per page 2  -> we will have 5 pages
     pageno = 1
 
     1,2
 
     per page 2
     pageno = 4
+    7,8
 
     we should exclude posts till page 3 and consider only 2 item from there
     2* (4 -1) -> count*(pageno-1)
@@ -119,29 +120,53 @@ postsRoute.put('/updatePost/:id', (req, res) => {
     const updatedContent =  req.body;
     console.log(updatedContent);
     if(postId) {
-        posts = posts.map(post => {
-            if(post.id === postId) {
-                return {...post, ...updatedContent};
+        Post.findOneAndUpdate({
+            _id: postId
+        }, updatedContent)
+        .then(response => {
+            if(!response) {
+                //Home work
             }
-            return post;
+            res.status(200).json({
+                message: "post updated successfully"
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                errorDesc: "Failed to update the post!",
+                error: err
+            })
         });
     }
-    res.status(200).json({
-        message: "post updated successfully",
-        data: posts
-    });
+    
 });
 
 postsRoute.delete('/deletePost/:id', (req, res) => {
     const postId = req.params.id;
-    let foundAt = posts.findIndex(post => post.id === postId);
-    let result = posts.splice(foundAt,1);
-    console.log(posts);
-    res.status(200).json({
-        message: "post deleted successfully",
-        data: result
+    
+    Post.deleteOne({_id: postId }).then(response => {
+        // {
+        //     "acknowledged": true,
+        //     "deletedCount": 0
+        // }
+        if(response.deletedCount) {
+            res.status(200).json({
+                message: "post deleted successfully",
+                data: response
+            })
+        } else {
+            res.status(404).json({
+                message: "Could not find a post to delete",
+                data: response
+            })
+        }
     })
-
+    .catch(err => {
+        res.status(500).json({
+            errorDesc: "Failed to delete the post!",
+            error: err
+        })
+    })
 });
 
 module.exports = postsRoute;

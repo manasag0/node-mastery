@@ -1,0 +1,36 @@
+Generally to login
+a user should enter username/email/phone and a password.
+
+Suppose a user is trying to get posts
+
+1st time login
+2nd login
+3rd time login
+
+So, in summary, It is not good to ask the user or client to login for every API call.
+At the same time, we cannot compromise on security
+
+
+When the user logs in, server will check if the user is valid.
+If valid, the server will issue a token.
+For all subsequent API calls, the user/client will pass that token with every request.
+The server will scan that token and decide to forward that request or deny entry.
+
+A breif history before the use of tokens (May be 20 years ago)
+
+Earlier, servers used to maintain sessions and keep track of who is requesting what.
+It means that server used to have a state.
+This kind of setup has the server stateful.
+These are called stateful web applications or servers.
+
+But, today, with the issuance of tokens, 
+our new server will issue a token and does not keep a copy or any info about it.
+It does not care for or maintain the state of the client.
+So, this kind of server is called stateless server.
+Such APIs are called RESTful APIs.
+REST - Representational state transfer
+
+The tokens which get exchanged here are called JWT tokens.
+Javascript web tokens.
+
+
