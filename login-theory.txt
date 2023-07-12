@@ -31,6 +31,10 @@ Such APIs are called RESTful APIs.
 REST - Representational state transfer
 
 The tokens which get exchanged here are called JWT tokens.
-Javascript web tokens.
+JSON web tokens.
+
+JWT is made up of 3 parts.
+
+HEADER, PAYLOAD, SIGNATURE
 
 
