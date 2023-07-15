@@ -1,5 +1,6 @@
 const express = require('express');
 const Post = require('../model/post');
+const authMiddleware =  require('../middleware/auth');
 
 const postsRoute = express.Router();
 
@@ -27,10 +28,9 @@ let posts = [
 //example: /getPosts?id=<id of the post you need> ->  /getPosts?id=q3e2
 
 //https://www.myntra.com/gateway/v2/search/ucb?f=Categories%3ATrack%20Pants%2CTshirts%3A%3AGender%3Amen%2Cmen%20women&rf=Discount%20Range%3A40.0_100.0_40.0%20TO%20100.0%3A%3APrice%3A311.0_728.0_311.0%20TO%20728.0&rows=50&o=0&plaEnabled=false&xdEnabled=false&pincode=500084
-postsRoute.get('/getPosts', (req, res) => {
+postsRoute.get('/getPosts', authMiddleware, (req, res) => {
     const postId = req.query.id;
     const search = req.query.search;
-    
 
     /*START - Pagination math with example
      
@@ -90,7 +90,7 @@ postsRoute.get('/getPosts', (req, res) => {
     
 });
 
-postsRoute.post('/createPost', (req, res) => {
+postsRoute.post('/createPost', authMiddleware, (req, res) => {
     // console.log(req.body);
     // posts.push(req.body);
     
@@ -114,14 +114,17 @@ postsRoute.post('/createPost', (req, res) => {
     });
 });
 
-postsRoute.put('/updatePost/:id', (req, res) => {
+postsRoute.put('/updatePost/:id', authMiddleware, (req, res) => {
     console.log(req.params.id);
     const postId = req.params.id;
     const updatedContent =  req.body;
+
+    // console.log("email added to the req", req.email);
     console.log(updatedContent);
     if(postId) {
         Post.findOneAndUpdate({
-            _id: postId
+            _id: postId,
+            userId: req.id
         }, updatedContent)
         .then(response => {
             if(!response) {
@@ -141,7 +144,7 @@ postsRoute.put('/updatePost/:id', (req, res) => {
     
 });
 
-postsRoute.delete('/deletePost/:id', (req, res) => {
+postsRoute.delete('/deletePost/:id', authMiddleware, (req, res) => {
     const postId = req.params.id;
     
     Post.deleteOne({_id: postId }).then(response => {

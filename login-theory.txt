@@ -37,4 +37,26 @@ JWT is made up of 3 parts.
 
 HEADER, PAYLOAD, SIGNATURE
 
+How to implement or use JWT token?
 
+   CLIENT             SERVER 
+
+login        ---->    server validates credentials
+            
+             token
+save it      <-----    server sends a token
+
+             token
+API call     ------>   server verifies the token
+
+            response
+             <------
+
+
+
+Every API which needs to be secured needs to check for this token and validate it
+Instead, if we have a single place where we put this token check and make all such APIs called via this
+Means, we are thinking of a code that sits in the middle and reads every request and response
+If valid token, continue. Else, block.
+
+This is called middleware.

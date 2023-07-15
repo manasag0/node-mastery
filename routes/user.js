@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const User = require('../model/user');
 
@@ -52,9 +53,31 @@ userRoute.post('/login', (req, res) => {
         if(user) {
             bcrypt.compare(loginData.password, user.password).then(authStatus => {
                 if(authStatus) { // passwords are matching
+                    //since passwords are matching, server sends a token here
+                    const jwtToken = jwt.sign(
+                        {
+                            email: user.email,
+                            name: user.name,
+                            id: user._id
+                        },
+                        '10XAcademySecret', // do not share this. Keep it top secret.
+                        {
+                            expiresIn: "1h"
+                        },
+                        // (err, token) => {
+                        //     if(err) {
+
+                        //     }
+                        //     else {
+                        //         return token;
+                        //     }
+                        // }
+                    )
                     console.log("passwords are matching");
+                    // console.log(jwtToken);
                     res.status(200).json({
-                        message: "Authentication successful!"
+                        message: "Authentication successful!",
+                        data: jwtToken
                     });
                 } else {
                     res.status(403).json({
