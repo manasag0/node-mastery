@@ -95,7 +95,7 @@ postsRoute.post('/createPost', authMiddleware, (req, res) => {
     // posts.push(req.body);
     
     const post  = new Post({
-        user: req.body.user,
+        userId: req.userId,
         title: req.body.title,
         content: req.body.content
     });
@@ -124,15 +124,20 @@ postsRoute.put('/updatePost/:id', authMiddleware, (req, res) => {
     if(postId) {
         Post.findOneAndUpdate({
             _id: postId,
-            userId: req.id
+            userId: req.userId
         }, updatedContent)
         .then(response => {
+            console.log(response);
             if(!response) {
                 //Home work
+                res.status(401).json({
+                    errorDesc: "Permission denied!"
+                })
+            } else {
+                res.status(200).json({
+                    message: "post updated successfully"
+                });
             }
-            res.status(200).json({
-                message: "post updated successfully"
-            });
         })
         .catch(err => {
             res.status(500).json({
@@ -147,7 +152,7 @@ postsRoute.put('/updatePost/:id', authMiddleware, (req, res) => {
 postsRoute.delete('/deletePost/:id', authMiddleware, (req, res) => {
     const postId = req.params.id;
     
-    Post.deleteOne({_id: postId }).then(response => {
+    Post.deleteOne({_id: postId, userId: req.userId }).then(response => {
         // {
         //     "acknowledged": true,
         //     "deletedCount": 0

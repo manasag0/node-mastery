@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
         //Authorization header will send 'Bearer token'. We are taking the second part after space
         const token = req.headers.authorization.split(' ')[1];
         const userInfo = jwt.verify(token, '10XAcademySecret');
-        req.id = userInfo.id;
+        req.userId = userInfo.id;
         next(); // continue to process the request
 
     } catch(err){

@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const postsRoute = require('./routes/post');
 const userRoute = require('./routes/user');
+const uploadRoute = require('./routes/upload');
+
 const mongoose = require('mongoose');
 
 const app = express();
@@ -21,6 +23,8 @@ mongoose.connect('mongodb+srv://chakradhardittakavi:RsjwyXhy5RvrkFaA@cluster0.er
 app.use('/post', postsRoute);
 
 app.use('/user', userRoute);
+
+app.use('/photos', uploadRoute);
 
 app.use('/about', (req, res) => {
     res.send("we are 10x students");
