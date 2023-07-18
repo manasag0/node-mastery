@@ -1,0 +1,13 @@
+Testing
+
+1. Manual Testing
+2. Automation Testing - Selenuim, Jasmine
+3. Unit Testing - Jest, Chai, Mocha
+4. Integration Testing - supertest
+5. Performace Testing
+6. Security Testing
+7. Functional Testing
+
+Our objective is to write test cases  - unit and integration 
+
+JEST and SUPERTEST
