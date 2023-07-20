@@ -81,19 +81,23 @@ userRoute.post('/login', (req, res) => {
                     });
                 } else {
                     res.status(403).json({
-                        message: "Email or password does not match"
+                        errorDesc: "Email or password does not match"
                     });
                 }
-            })
+            }).catch(err => {
+                res.status(500).json({
+                    errorDesc: "Internal server error"
+                });
+            });
         } else {
             res.status(404).json({
-                erroDesc: "Email id not registered with us!"
+                errorDesc: "Email id not registered with us!"
             });
         }
 
     }).catch(err => {
         res.status(500).json({
-            erroDesc: "Something went wrong!",
+            errorDesc: "Something went wrong!",
             error: err
         });
     });

@@ -4,7 +4,7 @@
   "description": "10x academy node mastery program",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "author": "Chakradhar DVS",
   "license": "ISC",

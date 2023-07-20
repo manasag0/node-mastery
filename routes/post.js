@@ -4,24 +4,6 @@ const authMiddleware =  require('../middleware/auth');
 
 const postsRoute = express.Router();
 
-let posts = [
-    {
-        id: 'q3e2',
-        user: 'Tarun',
-        content: '10X is awesome!'
-    },
-    {
-        id: 'q3fskf',
-        user: 'Arnab',
-        content: '10X is great!'
-    },
-    {
-        id: 'q3efs21',
-        user: 'Vinati',
-        content: 'I am awesome!'
-    },
-
-];
 //The method below gives all the posts available
 //To get specific post, you need to pass query parameters in the request.
 //They will be starting with ?
