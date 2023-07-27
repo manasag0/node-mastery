@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 //AUTH
 
@@ -13,7 +14,7 @@ module.exports = (req, res, next) => {
     try {
         //Authorization header will send 'Bearer token'. We are taking the second part after space
         const token = req.headers.authorization.split(' ')[1];
-        const userInfo = jwt.verify(token, '10XAcademySecret');
+        const userInfo = jwt.verify(token, process.env.ENCRYPTION_SECRET);
         req.userId = userInfo.id;
         next(); // continue to process the request
 

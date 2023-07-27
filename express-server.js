@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 const postsRoute = require('./routes/post');
 const userRoute = require('./routes/user');
 const uploadRoute = require('./routes/upload');
@@ -11,8 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // connection to mongoDB
-// RsjwyXhy5RvrkFaA - password
-mongoose.connect('mongodb+srv://chakradhardittakavi:RsjwyXhy5RvrkFaA@cluster0.ertlqcl.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGO_CONNECTION_STRING)
 .then((response) => {
     console.log("Connected to mongo DB successfully!");
 })
@@ -34,6 +34,6 @@ app.use('/', (req, res)=> {
     res.send("welcome to express server");
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 
 module.exports = app;

@@ -1,0 +1,25 @@
+Imagine there are 40 developers in a team and each one is having their code in their pc 
+No two developers have an idea of the changes from other developer 
+There will be merge conflicts - means, when multiple developers are changing the same line of code
+we cant decide which one to choose
+
+Each developer is having his/her own version of code.
+
+VERSION CONTROL
+COLLABORATION
+
+We will use git to solve our problem
+
+BIG WORD ALERT
+
+
+REPOSITORY (REPO) - the project code
+BRANCH
+STAGE
+COMMIT
+PULL
+push
+merge
+
+code will be uploaded onto server. We call this server as REMOTE
+we call our local machine as LOCAL

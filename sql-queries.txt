@@ -1,0 +1,31 @@
+#Find highest salary -> the number
+SELECT MAX(salary) FROM employees;
+
+#Find 2nd highest salary -> the number
+SELECT MAX(salary)
+FROM employees
+where salary < (select MAX(salary) from employees)
+
+
+#Find employee with highest salary -> number, details
+
+SELECT name, salary
+FROM employees
+where salary < (select MAX(salary) from employees)
+
+
+#Nth highest salary
+
+SELECT DISTINCT salary
+FROM employees
+ORDER By salary DESC
+LIMIT N-1, 1
+
+# Find the name and salary with nth highest salary
+
+SELECT name, salary
+FROM employees
+where salary  = (SELECT DISTINCT salary
+FROM employees
+ORDER By salary DESC
+LIMIT N-1, 1)

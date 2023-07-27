@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const User = require('../model/user');
 
@@ -60,7 +61,7 @@ userRoute.post('/login', (req, res) => {
                             name: user.name,
                             id: user._id
                         },
-                        '10XAcademySecret', // do not share this. Keep it top secret.
+                        process.env.ENCRYPTION_SECRET, // do not share this. Keep it top secret.
                         {
                             expiresIn: "1h"
                         },

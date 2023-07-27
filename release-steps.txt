@@ -1,0 +1,25 @@
+There are stages of a product (promotion levels)
+
+1. Development - Developers do the development and test locally. This is dev environment
+
+2. QA (Testing) - Testers need to test. i.e they need to have the application running somewhere.
+                  We cant ask them to sit next to us and test in our machine.
+                  We need to deploy it somewhere and run it there.
+                  Now, we will share the link to QA person and ask him/her to test.
+                  For QA, we need to set up things.
+                  Eg: We need to create a separate DB for them.
+                  This is called QA environment.
+
+3. Staging - staging environment - there may be some other team who will do security checks. they might check for code compliances
+
+4. pre prod (beta)
+
+5. Production - open to public/stakeholders
+
+As a summary, we can see that there are many stages and for each stage, we have environments.
+
+Before going to production,
+1. We need to make sure that code is clean with out any connection strings, passwords or secrets
+2. We need to setup appropriate environments for each stage.
+
+env files come to our rescue here. 
