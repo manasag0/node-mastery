@@ -20,8 +20,7 @@ userRoute.post('/register', (req, res) => {
     
         user.save().then(result => {
             res.status(201).json({
-                message: "User registered successfully!",
-                data: result
+                message: "User registered successfully!"
             });
     
         }).catch(err => {
@@ -78,7 +77,9 @@ userRoute.post('/login', (req, res) => {
                     // console.log(jwtToken);
                     res.status(200).json({
                         message: "Authentication successful!",
-                        data: jwtToken
+                        data: {
+                            token: jwtToken
+                        }
                     });
                 } else {
                     res.status(403).json({
