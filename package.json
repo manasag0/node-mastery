@@ -4,6 +4,8 @@
   "description": "10x academy node mastery program",
   "main": "index.js",
   "scripts": {
+    "build": "npm install",
+    "start": "node express-server.js",
     "test": "jest --coverage"
   },
   "author": "Chakradhar DVS",
